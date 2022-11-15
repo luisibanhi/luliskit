@@ -1,3 +1,5 @@
+<img src="https://user-images.githubusercontent.com/58981184/201955308-faa70720-be5e-4231-9761-b6161550802a.svg" width="400">
+
 Hi, this is **Opensource** Project that tries to have all features that some scheduling tools have as free to use.
 This project is using **Node.js** with **Typescript** to be more inclusive to almost all developers that know front and backend technologies.
 It is not perfect, and I'm trying to achieve all the features. I will be glad to have issues related to the best practices of **NestJS**, which are the framework we are using. 
@@ -45,4 +47,6 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Backlog
+Are you want to help? [Click here](https://trello.com/b/Hllhiy4z/luliskit-backlog)
   
