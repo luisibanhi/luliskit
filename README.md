@@ -48,5 +48,5 @@ $ npm run test:cov
 ```
 
 ## Backlog
-Are you want to help? [Click here](https://trello.com/b/Hllhiy4z/luliskit-backlog)
+Are you want to help? [Click here](https://github.com/luisibanhi/luliskit/issues)
   
