@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { ResourceDTO } from './resource.dto';
 import { ResourceService } from './resource.service';
 
@@ -13,5 +13,10 @@ export class ResourceController {
   @Get()
   public async getAll(): Promise<ResourceDTO[]> {
     return await this.serv.getAll();
+  }
+
+  @Put(':id')
+  public async update(@Param('id') id: string, @Body() updateUserDto: ResourceDTO) {
+    return this.serv.update(id, updateUserDto);
   }
 }

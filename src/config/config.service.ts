@@ -1,6 +1,5 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Project } from '../model/project.entity';
-import { AvailabilityConstraints } from '../model/availability_constraints.entity';
 import { Resource } from '../model/resource.entity';
 import { Booking } from '../model/booking.entity';
 
@@ -41,9 +40,10 @@ class ConfigService {
       password: this.getValue('POSTGRES_PASSWORD'),
       database: this.getValue('POSTGRES_DATABASE'),
       ssl: true,
-      entities: [Resource, AvailabilityConstraints, Project, Booking],
+      entities: [Resource, Project, Booking],
       migrationsTableName: 'migration',
-      autoLoadEntities: true
+      autoLoadEntities: true,
+      logging: !this.isProduction()
     };
   }
 }

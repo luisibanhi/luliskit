@@ -1,8 +1,13 @@
 // resource.entity.ts
-import { Entity, Column, OneToOne, ManyToMany, JoinTable } from 'typeorm';
-import { AvailabilityConstraints } from './availability_constraints.entity';
+import { Entity, Column, OneToOne, ManyToMany, JoinColumn } from 'typeorm';
+import { InputSlot } from 'slot-calculator';
 import { BaseEntity } from './base.entity';
-import Project from './project.entity';
+import { Project } from './project.entity';
+
+export interface Constraints {
+  blocks?: InputSlot[];
+  allow?: InputSlot[];
+}
 
 @Entity({ name: 'resource' })
 export class Resource extends BaseEntity {
@@ -21,10 +26,10 @@ export class Resource extends BaseEntity {
   @Column({ type: 'varchar', length: 300 })
   timezone?: string;
 
-  @OneToOne(type => AvailabilityConstraints, av => av.id)
-  availability_constraints?: AvailabilityConstraints;
+  @Column({ type: 'json', nullable: true })
+  availability_constraints?: Constraints;
 
-  @ManyToMany((type: any) => Project, (project: Project) => project.resources)
+  @ManyToMany(() => Project, (project: Project) => project.resources)
   projects: Project[]
 }
 
