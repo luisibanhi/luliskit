@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { InputSlot } from 'slot-calculator';
+import { MoreThanOrEqual, Repository } from 'typeorm';
 import { Booking } from '../model/booking.entity';
-import { BookingDTO } from './booking.dto';
+import { BookingDTO, Event } from './booking.dto';
 
 @Injectable()
 export class BookingService {
@@ -14,6 +15,10 @@ export class BookingService {
         resource: true,
       },
     }).then(resource => resource.map(e => BookingDTO.fromEntity(e)));
+  }
+
+  public async getAllByResourceId(id: string, date: Date): Promise<InputSlot[]> {
+    return await this.repo.findBy({ resource: { id }, start: MoreThanOrEqual(date) }).then(booking => booking.map(e => BookingDTO.toFilterAvailability(e)));
   }
 
   public async findBy(id: string): Promise<BookingDTO> {

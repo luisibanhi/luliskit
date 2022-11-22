@@ -1,10 +1,10 @@
 // project.entity.ts
+import { InputSlot } from 'slot-calculator';
 import { Entity, Column, ManyToMany, JoinTable } from 'typeorm';
-import { AvailabilityWorkdays } from './availability_constraints.entity';
 import { BaseEntity } from './base.entity';
 import Resource from './resource.entity';
 
-const WorkdayDefault: AvailabilityWorkdays[] = [
+const WorkdayDefault: InputSlot[] = [
   {
     day: "Monday",
     from: "12:00",
@@ -38,12 +38,15 @@ export class Project extends BaseEntity {
   name: string;
 
   @Column({ type: 'json', default: WorkdayDefault })
-  workdays_default: AvailabilityWorkdays[];
+  workdays_default: InputSlot[];
 
   @Column({ type: 'int', default: 60 })
   duration: number;
 
-  @ManyToMany((type: any) => Resource, (resource: Resource) => resource.projects)
+  @Column({ type: 'int', default: 60 })
+  minSlotDays: number;
+
+  @ManyToMany(() => Resource, (resource: Resource) => resource.projects)
   @JoinTable()
   resources: Resource[];
 }

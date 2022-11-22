@@ -2,8 +2,8 @@ import { IsArray, IsJSON, IsNumber, IsString, IsUUID, } from 'class-validator';
 import { v4 } from 'uuid';
 import { DateTime } from 'luxon';
 import { Project } from '../model/project.entity';
-import { AvailabilityWorkdays } from '../model/availability_constraints.entity';
 import { Resource } from '../model/resource.entity';
+import { InputSlot } from 'slot-calculator';
 
 export class ProjectDTO implements Readonly<ProjectDTO> {
 
@@ -17,7 +17,7 @@ export class ProjectDTO implements Readonly<ProjectDTO> {
   duration: number;
 
   @IsJSON()
-  workdays_default: AvailabilityWorkdays[];
+  workdays_default: InputSlot[];
 
   @IsArray()
   resources: Resource[]

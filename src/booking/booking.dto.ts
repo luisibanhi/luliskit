@@ -3,9 +3,10 @@ import { v4 } from 'uuid';
 import { DateTime } from 'luxon';
 import { Booking, BookingStatus, User } from '../model/booking.entity';
 import { Resource } from '../model/resource.entity';
+import { InputSlot } from 'slot-calculator';
 
 export interface Event {
-  calendar_id: string;
+  calendar_id?: string;
   start: Date;
   end: Date;
 }
@@ -14,18 +15,6 @@ export interface Attributes {
   customer: User;
   event: Event;
 }
-
-export interface RootObject {
-  id: string;
-  state: string;
-  completed: boolean;
-  blocked_week: object;
-  event: Event;
-  user: User;
-  attributes: Attributes;
-  resource: Resource;
-}
-
 
 export class BookingDTO implements Readonly<BookingDTO> {
 
@@ -104,5 +93,12 @@ export class BookingDTO implements Readonly<BookingDTO> {
     r.resource = dto.resource_id;
     r.createdBy = "";
     return r;
+  }
+
+  public static toFilterAvailability(entity: Booking): InputSlot {
+    return ({
+      from: entity.start.toISOString(),
+      to: entity.end.toISOString(),
+    })
   }
 }

@@ -18,4 +18,8 @@ export class ResourceService {
       .then(e => ResourceDTO.fromEntity(e));
   }
 
+  public async update(id: string, entity: ResourceDTO) {
+    return await this.repo.update(id, ResourceDTO.toEntity({...entity, id}))
+  }
+
 }
