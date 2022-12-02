@@ -9,7 +9,11 @@ export class ResourceService {
   constructor(@InjectRepository(Resource) private readonly repo: Repository<Resource>) {}
 
   public async getAll(): Promise<ResourceDTO[]> {
-    return await this.repo.find()
+    return await this.repo.find({
+      relations: {
+        projects: true,
+      },
+    })
       .then(resource => resource.map(e => ResourceDTO.fromEntity(e)));
   }
 

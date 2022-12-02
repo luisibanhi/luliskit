@@ -3,6 +3,7 @@ import { v4 } from 'uuid';
 import { DateTime } from 'luxon';
 import { Constraints, Resource } from '../model/resource.entity';
 import { AvailabilityDTO } from '../availability/availability.dto';
+import { Project } from '../model/project.entity';
 
 export interface ConstraintsRequest {
   allow_period: {
@@ -36,6 +37,9 @@ export class ResourceDTO implements Readonly<ResourceDTO> {
   @IsArray()
   availability_constraints: Constraints | ConstraintsRequest[];
 
+  @IsArray()
+  projects: Project[]
+
   public static from(dto: Partial<ResourceDTO>) {
     const r = new ResourceDTO();
     r.id = dto.id;
@@ -43,6 +47,7 @@ export class ResourceDTO implements Readonly<ResourceDTO> {
     r.email = dto.email;
     r.timezone = dto.timezone;
     r.availability_constraints = dto.availability_constraints;
+    r.projects = dto.projects;
     return r;
   }
 
@@ -52,7 +57,8 @@ export class ResourceDTO implements Readonly<ResourceDTO> {
       name: entity.name,
       email: entity.email,
       timezone: entity.timezone,
-      availability_constraints: AvailabilityDTO.formatToConstrainsRequest(entity?.availability_constraints)
+      availability_constraints: AvailabilityDTO.formatToConstrainsRequest(entity?.availability_constraints),
+      projects: entity.projects
     });
   }
 
@@ -69,6 +75,8 @@ export class ResourceDTO implements Readonly<ResourceDTO> {
     r.availability_constraints = AvailabilityDTO.formatConstrains(dto.availability_constraints as ConstraintsRequest[])
     r.created_at = DateTime.utc().toJSDate();
     r.updated_at = DateTime.utc().toJSDate();
+    // @ts-ignore
+    r.projects = dto.projects.map((item: Project) => ({ id: item }));
     r.createdBy = "";
     return r;
   }

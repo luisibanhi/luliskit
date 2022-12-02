@@ -1,5 +1,5 @@
 // resource.entity.ts
-import { Entity, Column, OneToOne, ManyToMany, JoinColumn } from 'typeorm';
+import { Entity, Column, ManyToMany } from 'typeorm';
 import { InputSlot } from 'slot-calculator';
 import { BaseEntity } from './base.entity';
 import { Project } from './project.entity';

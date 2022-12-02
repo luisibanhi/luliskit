@@ -8,9 +8,11 @@ import { ResourceModule } from './resource/resource.module';
 import { ProjectModule } from './project/project.module';
 import { AvailabilityModule } from './availability/availability.module';
 import { BookingModule } from './booking/booking.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
     ResourceModule,
     ProjectModule,

@@ -16,6 +16,16 @@ export interface Attributes {
   event: Event;
 }
 
+export enum Action {
+  Cancel = 'cancel',
+  CancelByCustomer = 'cancel_by_customer'
+}
+
+export const ActionToBookingStatus = {
+  [Action.Cancel]: BookingStatus.CANCELLED,
+  [Action.CancelByCustomer]: BookingStatus.CANCELLED_BY_CUSTOMER
+}
+
 export class BookingDTO implements Readonly<BookingDTO> {
 
   @IsUUID()
@@ -100,5 +110,9 @@ export class BookingDTO implements Readonly<BookingDTO> {
       from: entity.start.toISOString(),
       to: entity.end.toISOString(),
     })
+  }
+
+  public static convertActionToBookingStatus(action: Action) {
+    return ActionToBookingStatus[action];
   }
 }
